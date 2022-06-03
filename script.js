@@ -2,6 +2,7 @@ const products = fetchProducts('computador').then((data) => data.results);
 const items = document.querySelector('.items');
 const ol = document.querySelector('.cart__items');
 const price = document.querySelector('.total-price');
+const clearBtn = document.querySelector('.empty-cart');
 
 const createProductImageElement = (imageSource) => {
   const img = document.createElement('img');
@@ -78,6 +79,12 @@ products.then((data) => {
     const { id: sku, title: name, thumbnail: image } = produto;
     items.appendChild(createProductItemElement({ sku, name, image }));
   });
+});
+
+clearBtn.addEventListener('click', () => {
+  ol.innerHTML = '';
+  saveCartItems(ol.innerHTML);
+  atualizaValor();
 });
 
 window.onload = () => {
