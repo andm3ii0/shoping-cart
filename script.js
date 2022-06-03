@@ -13,6 +13,7 @@ const getSkuFromProductItem = (item) => item.querySelector('span.item__sku').inn
 
 const cartItemClickListener = (event) => {
   event.target.remove();
+  saveCartItems(ol.innerHTML);
 };
 
 const createCartItemElement = ({ sku, name, salePrice }) => {
@@ -29,6 +30,7 @@ const addToCart = async (event) => {
   const { id: sku, title: name, price: salePrice } = data;
   const newLi = createCartItemElement({ sku, name, salePrice });
   ol.appendChild(newLi);
+  saveCartItems(ol.innerHTML);
 };
 
 const createCustomElement = (element, className, innerText) => {
@@ -60,4 +62,13 @@ products.then((data) => {
   });
 });
 
-window.onload = () => { };
+window.onload = () => {
+  if (localStorage.getItem('cartItems') === undefined) {
+    return undefined;
+  }
+    ol.innerHTML = getSavedCartItems();
+    // Usei Array.from depois de fazer uma pesquisa no link https://stackoverflow.com/questions/40703465/javascript-getelementbyclass-foreach-function-not-workin
+    Array.from(document.getElementsByClassName('cart__item')).forEach((element) => {
+      element.addEventListener('click', cartItemClickListener);
+    });
+};
