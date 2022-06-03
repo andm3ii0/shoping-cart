@@ -91,6 +91,13 @@ body {
   margin: 40px 0;
 }
 
+.items .loading {
+  height: 100vh;
+  width: 65vw;
+  font-size: 50px;
+  text-align: center;
+}
+
 .item {
   display: flex;
   flex-direction: column;

@@ -25,7 +25,7 @@ const atualizaValor = () => {
   }
 };
 
-const getSkuFromProductItem = (item) => item.querySelector('span.item__sku').innerText;
+// const getSkuFromProductItem = (item) => item.querySelector('span.item__sku').innerText;
 
 const cartItemClickListener = (event) => {
   event.target.remove();
@@ -87,6 +87,17 @@ clearBtn.addEventListener('click', () => {
   atualizaValor();
 });
 
+const loading = async () => {
+  const section = document.querySelector('.items');
+  const newDiv = document.createElement('div');
+  newDiv.className = 'loading';
+  newDiv.innerText = 'carregando...';
+  section.appendChild(newDiv);
+  setTimeout(() => {
+    document.querySelector('.loading').remove();
+  }, 1000);
+};
+
 window.onload = () => {
   if (localStorage.getItem('cartItems') === undefined) {
     return undefined;
@@ -97,4 +108,5 @@ window.onload = () => {
     element.addEventListener('click', cartItemClickListener);
   });
   atualizaValor();
+  loading();
 };
